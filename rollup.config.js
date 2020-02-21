@@ -4,7 +4,20 @@ import peerDeps from 'rollup-plugin-peer-deps-external';
 
 import pkg from './package.json';
 
-const plugins = [typescript(), peerDeps(), bundleSize()];
+const plugins = [
+  typescript({
+    tsconfigOverride: {
+      exclude: [
+        'src/**/*.test.ts',
+        'src/**/*.test.tsx',
+        'src/**/*.spec.ts',
+        'src/**/*.spec.tsx',
+      ],
+    },
+  }),
+  peerDeps(),
+  bundleSize(),
+];
 
 const { name, source: input, main, browser, module: mjs } = pkg;
 
